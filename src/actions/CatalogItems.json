@@ -1,0 +1,37 @@
+[
+  {
+    "id": 0,
+    "title": "Hasta 20% de descuento en implante dental",
+    "price": 100,
+    "final_price": 80,
+    "image_url": "https://loremflickr.com/200/200/dog"
+  },
+  {
+    "id": 1,
+    "title": "Vuelo acrobático en Lleida",
+    "price": 300,
+    "final_price": 150,
+    "image_url": "https://loremflickr.com/100/200/dog"
+  },
+  {
+    "id": 2,
+    "title": "40% de descuento en masajes!",
+    "price": 100,
+    "final_price": 60,
+    "image_url": "https://loremflickr.com/120/240/dog"
+  },
+  {
+    "id": 3,
+    "title": "Ahorra el 40% en tu cena en el W",
+    "price": 200,
+    "final_price": 80,
+    "image_url": "https://loremflickr.com/100/240/dog"
+  },
+  {
+    "id": 4,
+    "title": "75% de descuento en clases de artes marciales",
+    "price": 100,
+    "final_price": 25,
+    "image_url": "https://loremflickr.com/100/170/dog"
+  }
+]
