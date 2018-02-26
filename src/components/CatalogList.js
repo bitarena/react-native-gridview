@@ -1,16 +1,7 @@
-import React from 'react';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import reducers from './reducers';
-import CatalogList from './components/CatalogList';
+import React, { Component } from 'react';
+import { View, Text, ScrollView, ListView } from 'react-native';
 
-const App = () =>
-  <Provider store={createStore(reducers)}>
-    <CatalogList />
-  </Provider>;
-
-/*
-class App extends Component {
+class CatalogList extends Component {
   componentWillMount() {
     const ds1 = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
@@ -34,12 +25,22 @@ class App extends Component {
   }
 
   render() {
-    const store = createStore(reducers);
-
     return (
-      <Provider store={store}>
-        <CatalogList />
-      </Provider>
+      <View style={styles.wrapper}>
+        <ScrollView contentContainerStyle={styles.container}>
+          <ListView
+            contentContainerStyle={styles.list}
+            dataSource={this.dataSource1}
+            renderRow={this.renderRow1}
+          />
+          <ListView
+            contentContainerStyle={styles.list}
+            dataSource={this.dataSource2}
+            renderRow={this.renderRow2}
+          />
+        </ScrollView>
+        <Text>Hola desde RN</Text>
+      </View>
     );
   }
 }
@@ -71,5 +72,5 @@ const styles = {
     margin: 3,
   },
 };
-*/
-export default App;
+
+export default CatalogList;
