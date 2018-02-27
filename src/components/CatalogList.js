@@ -1,5 +1,8 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { View, Text, ScrollView, ListView } from 'react-native';
+import { connect } from 'react-redux';
+import { catalogFetch } from './../actions';
 
 class CatalogList extends Component {
   componentWillMount() {
@@ -9,19 +12,42 @@ class CatalogList extends Component {
     const data1 = Array.apply(null, { length: 20 }).map(Number.call, Number);
     this.dataSource1 = ds1.cloneWithRows(data1);
 
+    // const data2 = Array.apply(null, { length: 30 }).map(Number.call, Number);
+    this.props.catalogFetch();
+    // this.createDataSource2(this.props);
     const ds2 = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-    const data2 = Array.apply(null, { length: 30 }).map(Number.call, Number);
-    this.dataSource2 = ds2.cloneWithRows(data2);
+
+    this.dataSource2 = ds2.cloneWithRows(this.props.items);
   }
+
+  componentWillReceiveProps(nextProps) {
+    // nextProps are the next set of props and this.props are still the old set of props
+    const ds2 = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+
+    this.dataSource2 = ds2.cloneWithRows(nextProps.items);
+  }
+
+  // createDataSource2({ items }) {
+  //   const ds2 = new ListView.DataSource({
+  //     rowHasChanged: (r1, r2) => r1 !== r2
+  //   });
+
+  //   // items[0] = 100;
+  //   // items[1] = 1000;
+
+  //   this.dataSource2 = ds2.cloneWithRows(items);
+  // }
 
   renderRow1(rowData) {
     return <Text style={styles.item1}>{rowData}</Text>;
   }
 
   renderRow2(rowData) {
-    return <Text style={styles.item2}>{rowData}</Text>;
+    return <Text style={styles.item2}>{rowData.id}</Text>;
   }
 
   render() {
@@ -39,7 +65,6 @@ class CatalogList extends Component {
             renderRow={this.renderRow2}
           />
         </ScrollView>
-        <Text>Hola desde RN</Text>
       </View>
     );
   }
@@ -73,4 +98,13 @@ const styles = {
   },
 };
 
-export default CatalogList;
+const mapStateToProps = state => {
+  return { items: state.items };
+  // const items = _.map(state.items, (val, uid) => {
+  //   return { ...val, uid };
+  // });
+
+  // return { items };
+};
+
+export default connect(mapStateToProps, { catalogFetch })(CatalogList);

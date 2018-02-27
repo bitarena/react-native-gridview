@@ -1,5 +1,1 @@
-export const types = {
-  catalog: {
-    list: 'catalog_list',
-  },
-};
+export const CATALOG_FETCH = 'CATALOG_FETCH';

@@ -1,11 +1,11 @@
-import { types } from './../actions/types';
+import { CATALOG_FETCH } from './../actions/types';
 
 const INITIAL_STATE = {};
 
-export default (state = INITIAL_STATE, action) => {
+export default (state = [], action) => {
   switch (action.type) {
-    case types.catalog.list:
-      return action.payload;
+    case CATALOG_FETCH:
+      return [...state, ...action.payload];
     default:
       return state;
   }
