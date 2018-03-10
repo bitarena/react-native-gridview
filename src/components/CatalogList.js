@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Text, ScrollView, ListView } from 'react-native';
+import { View, Text, ScrollView, ListView, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { catalogFetch } from './../actions';
 
@@ -23,6 +23,7 @@ class CatalogList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // TODO: DRY
     // nextProps are the next set of props and this.props are still the old set of props
     const ds2 = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
@@ -31,23 +32,15 @@ class CatalogList extends Component {
     this.dataSource2 = ds2.cloneWithRows(nextProps.items);
   }
 
-  // createDataSource2({ items }) {
-  //   const ds2 = new ListView.DataSource({
-  //     rowHasChanged: (r1, r2) => r1 !== r2
-  //   });
-
-  //   // items[0] = 100;
-  //   // items[1] = 1000;
-
-  //   this.dataSource2 = ds2.cloneWithRows(items);
-  // }
-
   renderRow1(rowData) {
     return <Text style={styles.item1}>{rowData}</Text>;
   }
 
   renderRow2(rowData) {
-    return <Text style={styles.item2}>{rowData.id}</Text>;
+    const { height, width } = Dimensions.get('window');
+
+    return <Text style={col2Styles(rowData.height, width / 2)}>{rowData.id}</Text>; 
+    // return <Text style={styles.item2}>{rowData.id}</Text>;
   }
 
   render() {
@@ -70,6 +63,15 @@ class CatalogList extends Component {
   }
 }
 
+const col2Styles = (height, width) => {
+  return {
+    backgroundColor: 'grey',
+    width,
+    height,
+    margin: 3,
+  };
+};
+
 const styles = {
   wrapper: {
     flex: 1
@@ -86,13 +88,13 @@ const styles = {
   },
   item1: {
     backgroundColor: 'red',
-    width: 100,
+    width: 150,
     height: 120,
     margin: 3,
   },
   item2: {
     backgroundColor: 'grey',
-    width: 100,
+    width: 150,
     height: 90,
     margin: 3,
   },
