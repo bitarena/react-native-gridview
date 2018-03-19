@@ -8,13 +8,13 @@ class CatalogList extends Component {
   componentWillMount() {
     this.props.catalogFetch();
 
-    const rightDS = new ListView.DataSource({
+    const rightDS = this.setupDataSource(); /*new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
-    });
+    });*/
 
-    const leftDS = new ListView.DataSource({
+    const leftDS = this.setupDataSource(); /*new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
-    });
+    });*/
 
     const { leftCol, rightCol } = this.getColumns(this.items);
 
@@ -25,13 +25,13 @@ class CatalogList extends Component {
   componentWillReceiveProps(nextProps) {
     // TODO: DRY
     // nextProps are the next set of props and this.props are still the old set of props
-    const ds2 = new ListView.DataSource({
+    const ds2 = this.setupDataSource(); /*new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
-    });
+    });*/
 
-    const ds1 = new ListView.DataSource({
+    const ds1 = this.setupDataSource();/*new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
-    });
+    });*/
 
     const { leftCol, rightCol } = this.getColumns(nextProps.items);
 
@@ -63,22 +63,6 @@ class CatalogList extends Component {
     return { leftCol, rightCol };
   }
 
-  // getLeftItems() {
-  //   debugger;
-  //   const result = this.props.items.filter((index) =>
-  //     index % 2 !== 0
-  //   );
-  //   return result;
-  // }
-
-  // getRightItems() {
-  //   debugger;
-  //   const result = this.props.items.filter((index) =>
-  //     index % 2 === 0
-  //   );
-  //   return result;
-  // }
-
   renderRow1(rowData) {
     return <Text style={styles.item1}>{rowData.id}</Text>;
   }
@@ -87,7 +71,6 @@ class CatalogList extends Component {
     const { height, width } = Dimensions.get('window');
 
     return <Text style={col2Styles(rowData.height, width / 2)}>{rowData.id}</Text>; 
-    // return <Text style={styles.item2}>{rowData.id}</Text>;
   }
 
   render() {
