@@ -1,8 +1,8 @@
 import { CATALOG_FETCH } from './../actions/types';
 
-const INITIAL_STATE = {};
+const INITIAL_STATE = [];
 
-export default (state = [], action) => {
+export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case CATALOG_FETCH:
       return [...state, ...action.payload];

@@ -6,20 +6,20 @@ import { catalogFetch } from './../actions';
 
 class CatalogList extends Component {
   componentWillMount() {
-    const ds1 = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-    const data1 = Array.apply(null, { length: 20 }).map(Number.call, Number);
-    this.dataSource1 = ds1.cloneWithRows(data1);
-
-    // const data2 = Array.apply(null, { length: 30 }).map(Number.call, Number);
     this.props.catalogFetch();
-    // this.createDataSource2(this.props);
-    const ds2 = new ListView.DataSource({
+
+    const rightDS = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
 
-    this.dataSource2 = ds2.cloneWithRows(this.props.items);
+    const leftDS = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+
+    const { leftCol, rightCol } = this.getColumns(this.items);
+
+    this.leftDataSource = leftDS.cloneWithRows(leftCol);
+    this.rightDataSource = rightDS.cloneWithRows(rightCol);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -29,11 +29,58 @@ class CatalogList extends Component {
       rowHasChanged: (r1, r2) => r1 !== r2
     });
 
-    this.dataSource2 = ds2.cloneWithRows(nextProps.items);
+    const ds1 = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+
+    const { leftCol, rightCol } = this.getColumns(nextProps.items);
+
+    this.leftDataSource = ds2.cloneWithRows(leftCol);
+
+    this.rightDataSource = ds1.cloneWithRows(rightCol);
   }
 
+  setupDataSource() {
+    const dataSource = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+    return dataSource;
+  }
+
+  getColumns(items) {
+    const leftCol = [];
+    const rightCol = [];
+
+    if (items) {
+      for (let i = 0; i < items.length; i++) {
+        if ((i + 2) % 2 === 0) {
+          leftCol.push(items[i]);
+        } else {
+            rightCol.push(items[i]);
+        }
+      }
+    }
+    return { leftCol, rightCol };
+  }
+
+  // getLeftItems() {
+  //   debugger;
+  //   const result = this.props.items.filter((index) =>
+  //     index % 2 !== 0
+  //   );
+  //   return result;
+  // }
+
+  // getRightItems() {
+  //   debugger;
+  //   const result = this.props.items.filter((index) =>
+  //     index % 2 === 0
+  //   );
+  //   return result;
+  // }
+
   renderRow1(rowData) {
-    return <Text style={styles.item1}>{rowData}</Text>;
+    return <Text style={styles.item1}>{rowData.id}</Text>;
   }
 
   renderRow2(rowData) {
@@ -49,12 +96,12 @@ class CatalogList extends Component {
         <ScrollView contentContainerStyle={styles.container}>
           <ListView
             contentContainerStyle={styles.list}
-            dataSource={this.dataSource1}
+            dataSource={this.leftDataSource}
             renderRow={this.renderRow1}
           />
           <ListView
             contentContainerStyle={styles.list}
-            dataSource={this.dataSource2}
+            dataSource={this.rightDataSource}
             renderRow={this.renderRow2}
           />
         </ScrollView>

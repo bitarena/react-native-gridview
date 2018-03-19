@@ -5,7 +5,7 @@
     "price": 100,
     "final_price": 80,
     "image_url": "https://loremflickr.com/200/200/dog",
-    "height": 200
+    "height": 500
   },
   {
     "id": 1,
@@ -21,7 +21,7 @@
     "price": 100,
     "final_price": 60,
     "image_url": "https://loremflickr.com/120/240/dog",
-    "height": 240
+    "height": 440
   },
   {
     "id": 3,
@@ -37,6 +37,30 @@
     "price": 100,
     "final_price": 25,
     "image_url": "https://loremflickr.com/100/170/dog",
+    "height": 100
+  },
+  {
+    "id": 5,
+    "title": "75% de descuento en clases de artes marciales",
+    "price": 100,
+    "final_price": 25,
+    "image_url": "https://loremflickr.com/100/170/dog",
+    "height": 120
+  },
+  {
+    "id": 6,
+    "title": "75% de descuento en clases de artes marciales",
+    "price": 100,
+    "final_price": 25,
+    "image_url": "https://loremflickr.com/100/170/dog",
     "height": 170
+  },
+  {
+    "id": 7,
+    "title": "75% de descuento en clases de artes marciales",
+    "price": 100,
+    "final_price": 25,
+    "image_url": "https://loremflickr.com/100/170/dog",
+    "height": 300
   }
 ]
