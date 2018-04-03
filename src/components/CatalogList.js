@@ -1,4 +1,4 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 import React, { Component } from 'react';
 import { View, Text, ScrollView, ListView, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
@@ -8,9 +8,7 @@ class CatalogList extends Component {
   componentWillMount() {
     this.props.catalogFetch();
 
-    const rightDS = this.setupDataSource(); /*new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });*/
+    const rightDS = this.setupDataSource();
 
     const leftDS = this.setupDataSource(); /*new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
@@ -64,7 +62,10 @@ class CatalogList extends Component {
   }
 
   renderRow1(rowData) {
-    return <Text style={styles.item1}>{rowData.id}</Text>;
+    const { height, width } = Dimensions.get('window');
+
+    // return <Text style={styles.item1}>{rowData.id}</Text>;
+    return <Text style={col1Styles(rowData.height, width / 2)}>{rowData.id}</Text>;
   }
 
   renderRow2(rowData) {
@@ -96,6 +97,15 @@ class CatalogList extends Component {
 const col2Styles = (height, width) => {
   return {
     backgroundColor: 'grey',
+    width,
+    height,
+    margin: 3,
+  };
+};
+
+const col1Styles = (height, width) => {
+  return {
+    backgroundColor: 'red',
     width,
     height,
     margin: 3,
